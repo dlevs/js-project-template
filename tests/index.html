@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+	<script src="../node_modules/mocha/mocha.js"></script>
+	<script src="../node_modules/chai/chai.js"></script>
+	<script src="../dist/AppName.js"></script>
+</head>
+<body>
+<div id="mocha">Run "npm install" to perform tests.</div>
+<script>
+	mocha.ui('bdd');
+	expect = chai.expect;
+	assert = chai.assert;
+	chai.should();
+	document.getElementById('mocha').innerText = '';
+</script>
+<script src="index.js"></script>
+<script>
+	mocha.run();
+</script>
+</body>
+</html>
