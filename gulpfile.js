@@ -38,14 +38,14 @@ const b = browserify(browserifyOptions);
 b.transform('babelify', {presets: ['es2015']});
 b.on('update', filepaths => {
 	gutil.log(`Watchify '${gutil.colors.cyan(filepaths)}' changed`);
-	gulp.start('scripts');
+	bundleScripts();
 });
 
 
 // Gulp tasks
 //------------------------------------------------
-gulp.task('scripts', () => {
-	return b.bundle()
+function bundleScripts() {
+	b.bundle()
 		.on('error', notify.onError('Error: <%= error.message %>'))
 		.pipe(source(`${packageJson.name}.js`))
 		.pipe(buffer())
@@ -58,5 +58,8 @@ gulp.task('scripts', () => {
 		.pipe(uglify())
 		.pipe(rename(`${packageJson.name}.min.js`))
 		.pipe(gulp.dest(paths.scripts.dest));
-});
+
+	gutil.log(`Scripts compiled`);
+};
+gulp.task('scripts', bundleScripts);
 gulp.task('default', ['scripts']);
